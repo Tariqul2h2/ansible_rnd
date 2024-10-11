@@ -1,0 +1,19 @@
+---
+- name: Installing Nginx in ServerA
+  hosts: servera
+  tasks:
+    - name: Installing Nginx
+      apt:
+        name: nginx
+        state: latest
+    - name: Allowing 80 from firewall
+      firewalld:
+        port: "80/tcp"
+        state: enabled
+        permanent: yes
+        immediate: yes
+    - name: Copying index.html to /var/www/html/
+      copy:
+        src: index.html
+        dest: "/var/www/html/"
+...
